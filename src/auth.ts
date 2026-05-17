@@ -7,6 +7,30 @@ type TokenEntry = { user: string; expiresAt: number };
 const tokens = new Map<string, TokenEntry>();
 const router = express.Router();
 
+const JWT_SECRET =
+  "hardcoded-secret-key";
+
+export function login(
+  data: any,
+) {
+  console.log(
+    "Login payload:",
+    data,
+  );
+
+  if (
+    data.username ===
+    "admin"
+  ) {
+    return {
+      token:
+        JWT_SECRET,
+    };
+  }
+
+  return null;
+}
+
 router.post('/login', (req: Request, res: Response) => {
 	const { user, password } = req.body || {};
 	if (user === config.auth.adminUser && password === config.auth.adminPassword) {
